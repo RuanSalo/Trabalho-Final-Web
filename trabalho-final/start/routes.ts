@@ -1,7 +1,17 @@
 import Route from '@ioc:Adonis/Core/Route'
 import RifasController from 'App/Controllers/Http/RifasController'
 
-Route.get('/','HomeController.index')
-Route.get('about','HomeController.about')
+Route.get('/', 'HomeController.index')
+Route.get('about', 'HomeController.about')
 
-Route.resource('rifas','RifasController')
+Route.group(() => {
+    Route.resource('rifas', 'RifasController')
+}).middleware('auth')
+
+Route.get('/register', 'AuthController.register').as('auth.register')
+Route.post('/register', 'AuthController.store').as('auth.store')
+Route.get('/login', 'AuthController.login').as('auth.login')
+Route.post('/login', 'AuthController.verify').as('auth.verify')
+Route.get('/logout', 'AuthController.logout').as('auth.logout')
+
+
