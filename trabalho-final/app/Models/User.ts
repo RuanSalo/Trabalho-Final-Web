@@ -4,8 +4,10 @@ import {
   column,
   beforeSave,
   BaseModel,
+  hasMany,
+  HasMany 
 } from '@ioc:Adonis/Lucid/Orm'
-
+import Rifa from './Rifa'
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -34,4 +36,7 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasMany(() => Rifa)
+  public rifas: HasMany<typeof Rifa>
 }

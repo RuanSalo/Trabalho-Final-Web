@@ -7,7 +7,8 @@ export default class RifasController {
     return view.render('rifas.index')
   }
 
-  public async show ({}: HttpContextContract) {
+  public async show ({view}: HttpContextContract) {
+    return view.render('rifas.show')
   }
 
   public async create ({view}: HttpContextContract) {
@@ -15,9 +16,10 @@ export default class RifasController {
 
   }
 
-  public async store ({request, response}: HttpContextContract) {
+  public async store ({request, response, auth}: HttpContextContract) {
     const data = request.all()
-    await Rifa.create(data)
+    const user = auth.user
+    await Rifa.create({...data, userId: user?.id})
     response.redirect().toRoute('rifas.index')
   }
 

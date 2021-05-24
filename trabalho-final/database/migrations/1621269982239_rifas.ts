@@ -8,6 +8,7 @@ export default class Rifas extends BaseSchema {
       table.increments('id')
       table.string('name').notNullable
       table.integer('value').notNullable
+      table.integer('user_id').unsigned().notNullable().references('id').inTable('users')
       table.timestamps(true)
     })
   }
