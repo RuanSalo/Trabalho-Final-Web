@@ -1,13 +1,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Rifa from 'App/Models/Rifa'
-import Rifas from 'Database/migrations/1621269982239_rifas'
 
 export default class RifasController {
   public async index ({view}: HttpContextContract) {
     return view.render('rifas.index')
   }
 
-  public async show ({view}: HttpContextContract) {
+  public async show ({params,view}: HttpContextContract) {
     return view.render('rifas.show')
   }
 

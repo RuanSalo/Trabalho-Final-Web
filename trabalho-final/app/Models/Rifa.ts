@@ -6,13 +6,37 @@ export default class Rifa extends BaseModel {
   public id: number
 
   @column()
+  public userId: number
+
+  @column()
+  public tipoId: number
+
+  @column()
+  public titulo: string
+
+  @column()
+  public descricao: string
+
+  @column.dateTime()
+  public dataProvavelSorteio: DateTime
+  
+  @column.dateTime()
+  public dataInicioVenda: DateTime
+
+  @column.dateTime()
+  public dataFimVenda: DateTime
+
+  @column.dateTime()
+  public dataSorteio: DateTime
+
+  @column()
+  public valorBilhete: number
+
+  @column()
   public name: string
 
   @column()
   public value: number
-
-  @column()
-  public userId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
