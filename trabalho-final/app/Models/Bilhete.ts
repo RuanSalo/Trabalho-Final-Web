@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import Rifa from './Rifa'
 export default class Bilhete extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -19,4 +19,8 @@ export default class Bilhete extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => Rifa)
+  public rifas: BelongsTo<typeof Rifa>
+
 }

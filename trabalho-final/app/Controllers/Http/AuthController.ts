@@ -7,12 +7,13 @@ export default class AuthController {
   }
 
   public async store({ request, response, auth, session }: HttpContextContract) {
-    const data = request.only(['name', 'email', 'password'])
+    const data = request.only(['nome', 'email', 'senha'])
     try {
-      const user = await User.create(data)
+      const user = await User.create({...data,admin:false})
       await auth.login(user, true)
     } catch (error) {
       session.flash('errors', 'Erro no registro. Verifique suas informações.')
+      console.log(error)
       return response.redirect().toRoute('auth.register')
     }
     response.redirect().toRoute('/')
@@ -23,8 +24,8 @@ export default class AuthController {
   }
 
   public async verify({ request, response, auth }: HttpContextContract) {
-    const data = request.only(['email', 'password', 'remember'])
-    await auth.attempt(data.email, data.password, data.remember === 'true')
+    const data = request.only(['email', 'senha', 'remember'])
+    await auth.attempt(data.email, data.senha, data.remember === 'true')
     response.redirect().toRoute('/')
   }
 

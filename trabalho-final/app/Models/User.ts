@@ -5,9 +5,12 @@ import {
   beforeSave,
   BaseModel,
   hasMany,
-  HasMany 
+  HasMany, 
+  hasManyThrough,
+  HasManyThrough
 } from '@ioc:Adonis/Lucid/Orm'
 import Rifa from './Rifa'
+import Bilhete from './Bilhete'
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -45,4 +48,7 @@ export default class User extends BaseModel {
 
   @hasMany(() => Rifa)
   public rifas: HasMany<typeof Rifa>
+
+  @hasManyThrough([() =>Bilhete, () =>Rifa])
+  public bilhetes: HasManyThrough<typeof Bilhete>
 }

@@ -8,6 +8,7 @@
     <div class="col-4">
       <main class="form-signin">
         <form action="{{ route('auth.verify') }}" method="post">
+          {{ csrfField() }}
           <h1 class="h3 mb-3 fw-normal">Login</h1>
 
           <div class="form-floating mb-1">
@@ -15,8 +16,8 @@
             <label for="email">Email</label>
           </div>
           <div class="form-floating mb-1">
-            <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
-            <label for="password">Senha</label>
+            <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
+            <label for="senha">Senha</label>
           </div>
 
           <div class="checkbox mb-3">

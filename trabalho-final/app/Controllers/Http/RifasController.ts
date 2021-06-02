@@ -16,7 +16,7 @@ export default class RifasController {
   }
 
   public async store ({request, response, auth}: HttpContextContract) {
-    const data = request.all()
+    const data = request.only(['titulo','dataInicioVenda','dataFimVenda','dataProvavelSorteio','valorBilhete'])
     const user = auth.user
     await Rifa.create({...data, userId: user?.id})
     response.redirect().toRoute('rifas.index')

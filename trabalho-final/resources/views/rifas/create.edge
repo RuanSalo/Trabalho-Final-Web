@@ -2,11 +2,28 @@
 @section('content')
     <h1>Nova Rifa</h1>
     <form action="{{ route('rifas.store')}}" method="post">
-       <div>
-            <label for="name">Nome do comprador:</label>
-            <input type="text" name="name" id="name">
-            <label for="value">Números escolhidos:</label>
-            <input type="text" name="value" id="value">
+        {{ csrfField() }}
+       <div class="py-1">
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" id="titulo">
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="descricao" id="descricao">
+        </div>
+        <div class="py-1">
+            <label for="dataInicioVenda">Data de início de venda:</label>
+            <input type="date" name="dataInicioVenda" id="dataInicioVenda">
+            <label for="dataFimVenda">Data de fim de venda:</label>
+            <input type="date" name="dataFimVenda" id="dataFimVenda">
+        </div>
+        <div class="py-1">
+            <label for="dataProvavelSorteio">Data provável do sorteio:</label>
+            <input type="date" name="dataProvavelSorteio" id="dataProvavelSorteio">
+            <label for="dataSorteio">Data do sorteio:</label>
+            <input type="date" name="dataSorteio" id="dataSorteio">
+        </div>
+        <div class="py-1">
+            <label for="valorBilhete">Valor do bilhete:</label>
+            <input type="text" name="valorBilhete" id="valorBilhete">
         </div>
         <div>
             <button class="btn btn-primary" type="submit">Cadastrar rifa</button>

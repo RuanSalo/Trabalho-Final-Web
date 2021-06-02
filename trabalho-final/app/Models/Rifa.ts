@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import Bilhete from './Bilhete'
+import Tipo from './Tipo'
 export default class Rifa extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -32,12 +34,6 @@ export default class Rifa extends BaseModel {
   @column()
   public valorBilhete: number
 
-  @column()
-  public name: string
-
-  @column()
-  public value: number
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
@@ -46,4 +42,10 @@ export default class Rifa extends BaseModel {
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
+
+  @hasMany(() => Bilhete)
+  public bilhetes: HasMany<typeof Bilhete>
+
+  @hasMany(() => Tipo)
+  public tipos: HasMany<typeof Tipo>
 }
