@@ -7,7 +7,7 @@ export default class AuthController {
   }
 
   public async store({ request, response, auth, session }: HttpContextContract) {
-    const data = request.only(['nome', 'email', 'senha'])
+    const data = request.only(['nome', 'email', 'password'])
     try {
       const user = await User.create({...data,admin:false})
       await auth.login(user, true)
@@ -24,8 +24,9 @@ export default class AuthController {
   }
 
   public async verify({ request, response, auth }: HttpContextContract) {
-    const data = request.only(['email', 'senha', 'remember'])
-    await auth.attempt(data.email, data.senha, data.remember === 'true')
+    const data = request.only(['email', 'password', 'remember'])
+    console.log(data)
+    await auth.attempt(data.email, data.password, data.remember === 'true')
     response.redirect().toRoute('/')
   }
 
