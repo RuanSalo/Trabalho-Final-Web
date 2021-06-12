@@ -21,7 +21,7 @@ export default class Rifa extends BaseModel {
 
   @column.dateTime()
   public dataProvavelSorteio: DateTime
-  
+
   @column.dateTime()
   public dataInicioVenda: DateTime
 

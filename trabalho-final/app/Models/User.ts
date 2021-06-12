@@ -5,9 +5,9 @@ import {
   beforeSave,
   BaseModel,
   hasMany,
-  HasMany, 
+  HasMany,
   hasManyThrough,
-  HasManyThrough
+  HasManyThrough,
 } from '@ioc:Adonis/Lucid/Orm'
 import Rifa from './Rifa'
 import Bilhete from './Bilhete'
@@ -16,10 +16,10 @@ export default class User extends BaseModel {
   public id: number
 
   @column()
-  public admin : boolean
+  public admin: boolean
 
   @column()
-  public nome : string
+  public nome: string
 
   @column()
   public email: string
@@ -40,7 +40,7 @@ export default class User extends BaseModel {
   public updatedAt: DateTime
 
   @beforeSave()
-  public static async hashPassword (user: User) {
+  public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
@@ -49,6 +49,6 @@ export default class User extends BaseModel {
   @hasMany(() => Rifa)
   public rifas: HasMany<typeof Rifa>
 
-  @hasManyThrough([() =>Bilhete, () =>Rifa])
+  @hasManyThrough([() => Bilhete, () => Rifa])
   public bilhetes: HasManyThrough<typeof Bilhete>
 }

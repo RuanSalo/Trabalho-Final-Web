@@ -22,5 +22,4 @@ export default class Bilhete extends BaseModel {
 
   @belongsTo(() => Rifa)
   public rifas: BelongsTo<typeof Rifa>
-
 }

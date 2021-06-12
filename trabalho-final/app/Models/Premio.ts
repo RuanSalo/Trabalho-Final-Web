@@ -23,6 +23,6 @@ export default class Premio extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() =>Rifa)
+  @belongsTo(() => Rifa)
   public rifas: BelongsTo<typeof Rifa>
 }

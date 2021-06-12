@@ -9,7 +9,7 @@ export default class AuthController {
   public async store({ request, response, auth, session }: HttpContextContract) {
     const data = request.only(['nome', 'email', 'password'])
     try {
-      const user = await User.create({...data,admin:false})
+      const user = await User.create({ ...data, admin: false })
       await auth.login(user, true)
     } catch (error) {
       session.flash('errors', 'Erro no registro. Verifique suas informações.')

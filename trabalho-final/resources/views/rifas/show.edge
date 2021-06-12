@@ -1,14 +1,15 @@
 @layout('layout/app')
 
 @section('content')
-  <h2>Menu de Rifas</h2>
+  <h2>Rifas disponíveis</h2>
 
-  <div class="card">
-    <div class="card-body">
-      <p>Comprador: {{ rifa.nome }}</p>
+  <div class="container" >
+    <div class="border border-secondary rounded-1">
+      <p>Datas:</p>
+      <p>Início da venda: {{rifa.dataInicioVenda}}</p>
     </div>
   </div>
   <div>
     <a href="/rifas" class="btn btn-link">Voltar</a>
   </div>
-@endsection"
+@endsection

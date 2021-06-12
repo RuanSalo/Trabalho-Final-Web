@@ -3,7 +3,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Premios extends BaseSchema {
   protected tableName = 'premios'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('rifa_id').unsigned().notNullable().references('id').inTable('rifas')
@@ -15,7 +15,7 @@ export default class Premios extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }
