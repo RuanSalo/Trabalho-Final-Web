@@ -8,9 +8,10 @@ export default class RifasController {
   }
 
   public async show({ params, view, auth }: HttpContextContract) {
-    const rifa = await this.getRifa(auth, params.user_id)
+    const rifa = await this.getRifa(auth, params.id)
     return view.render('rifas.show', rifa)
   }
+
   public async create({ view }: HttpContextContract) {
     return view.render('rifas.create')
   }
