@@ -2,5 +2,21 @@
 @section('content')
     <h1>Menu de rifas</h1>
     <a class="btn btn-primary" href="/rifas/create">Criar nova rifa</a>
-    <a class="btn btn-primary" href="/rifas/show">Mostrar rifas</a>
+    @each(rifa in rifas)
+      <li class="list-group-item d-flex justify-content-between">
+        <div class="nome">{{ rifa.titulo }}</div>
+        <div class="actions">
+          <a href="{{ route('rifas.show', { id: rifa.id }) }}" class="btn btn-primary">Visualizar</a>
+          <form
+            style="display: inline;"
+            method="post"
+            action="{{
+              route('rifas.destroy', { id: rifa.id, qs: { _method: 'DELETE' } })
+            }}">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn-primary">Apagar</button>
+          </form>
+        </div>
+      </li>
+    @endeach
 @endsection

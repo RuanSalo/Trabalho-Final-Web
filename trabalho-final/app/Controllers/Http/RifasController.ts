@@ -3,8 +3,10 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Rifa from 'App/Models/Rifa'
 
 export default class RifasController {
-  public async index({ view }: HttpContextContract) {
-    return view.render('rifas/index')
+  public async index({ view, auth}: HttpContextContract) {
+    const user = auth.user!!
+    const rifas = await user.related('rifas').query()
+    return view.render('rifas/index', {rifas})
   }
 
   public async show({ params, view, auth }: HttpContextContract) {
@@ -19,25 +21,38 @@ export default class RifasController {
   public async store({ request, response, auth }: HttpContextContract) {
     const data = request.only([
       'titulo',
+      'descricao',
       'dataInicioVenda',
       'dataFimVenda',
       'dataProvavelSorteio',
+      'dataSorteio',
       'valorBilhete',
     ])
     const user = auth.user
-    await Rifa.create({ ...data, userId: user?.id, tipoId: 1 })
-    response.redirect().toRoute('rifas/index')
+    const rifa = await Rifa.create({ ...data, userId: user?.id, tipoId: 1, })
+    for(let i = 1; i <=1000; i++){
+      await rifa.related('bilhetes').create({numero: i})
+    }
+    response.redirect().toRoute('rifas.index')
   }
 
   public async edit({}: HttpContextContract) {}
 
   public async update({}: HttpContextContract) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({params, response, auth, session}: HttpContextContract) {
+    const rifa = await this.getRifa(auth, params.id, true)
+    rifa.delete()
+    session.flash('error', 'Rifa removida com sucesso.')
+    response.redirect().toRoute('rifas/index')
+  }
 
-  private async getRifa(auth: AuthContract, id): Promise<Rifa> {
-    console.log(`ID a ser passado:${id}`);
+  private async getRifa(auth: AuthContract, id, preload = false): Promise<Rifa> {
     const user = auth.user!!
-    return await user.related('rifas').query().where('id', id).firstOrFail()
+    if (preload) {
+      return await user.related('rifas').query().where('id', id).preload('bilhetes').firstOrFail()
+    } else {
+      return await user.related('rifas').query().where('id', id).firstOrFail()
+    }
   }
 }

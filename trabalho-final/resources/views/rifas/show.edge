@@ -1,12 +1,22 @@
 @layout('layout/app')
-
 @section('content')
   <h2>Rifas disponíveis</h2>
 
-  <div class="container" >
-    <div class="border border-secondary rounded-1">
-      <p>Informações:</p>
-      <p>Título: {{rifa.titulo}}</p>
+  <div class="container border-end border-bottom border-2" >
+    <h3>Informações:</h3>
+    <div class="container border-start border-top border-2">
+      <div><h5>Título: {{rifa.titulo}}</h5></div>
+      <div><p>Descrição: {{rifa.descricao}}</p></div>
+      <div><p>Data do início da venda: {{rifa.dataInicioVenda}}</p></div>
+      <div><p>Data do fim da venda: {{rifa.dataFimVenda}}</p></div>
+      <div><p>Data provável do sorteio: {{rifa.dataProvavelSorteio}}</p></div>
+      <div><p>Data do sorteio: {{rifa.dataSorteio}}</p></div>
+      <div><p>Valor do bilhete: {{rifa.valorBilhete}}</p></div>
+
+      @each(bilhete in rifa.bilhetes)
+        <div><p>{{bilhete.numero}}</p></div>
+      @endeach
+
     </div>
   </div>
   <div>
