@@ -1,25 +1,48 @@
 @layout('layout/app')
 @section('content')
-  <h2>Rifas disponíveis</h2>
+<h2>Rifas disponíveis</h2>
 
-  <div class="container border-end border-bottom border-2" >
-    <h3>Informações:</h3>
-    <div class="container border-start border-top border-2">
-      <div><h5>Título: {{rifa.titulo}}</h5></div>
-      <div><p>Descrição: {{rifa.descricao}}</p></div>
-      <div><p>Data do início da venda: {{rifa.dataInicioVenda}}</p></div>
-      <div><p>Data do fim da venda: {{rifa.dataFimVenda}}</p></div>
-      <div><p>Data provável do sorteio: {{rifa.dataProvavelSorteio}}</p></div>
-      <div><p>Data do sorteio: {{rifa.dataSorteio}}</p></div>
-      <div><p>Valor do bilhete: {{rifa.valorBilhete}}</p></div>
-
-      @each(bilhete in rifa.bilhetes)
-        <div><p>{{bilhete.numero}}</p></div>
-      @endeach
-
+<div class="container border-end border-bottom border-2">
+  <h3>Informações:</h3>
+  <div class="container border-start border-top border-2">
+    <div>
+      <h5>Título: {{rifa.titulo}}</h5>
     </div>
+    <div>
+      <p>Descrição: {{rifa.descricao}}</p>
+    </div>
+    <div>
+      <p>Data do início da venda: {{rifa.dataInicioVenda}}</p>
+    </div>
+    <div>
+      <p>Data do fim da venda: {{rifa.dataFimVenda}}</p>
+    </div>
+    <div>
+      <p>Data provável do sorteio: {{rifa.dataProvavelSorteio}}</p>
+    </div>
+    <div>
+      <p>Data do sorteio: {{rifa.dataSorteio}}</p>
+    </div>
+    <div>
+      <p>Valor do bilhete: {{rifa.valorBilhete}}</p>
+    </div>
+
+    <div class="container border-color-primary">
+      @each(bilhete in rifa.bilhetes)
+      @if(!bilhete.comprado)
+        <li class="list-group-item d-flex justify-content-between">
+        <div class="nome">{{ bilhete.numero }}</div>
+        <div class="actions">
+          <button href="{{ route('rifas.edit', { id: rifa.id, bilhete_id: bilhete.id }) }}" class="btn btn-outline-primary">Comprar</button>
+        </div>
+      </li>
+      @endif
+      @endeach
+    </div>
+
   </div>
-  <div>
-    <a href="/rifas" class="btn btn-link">Voltar</a>
-  </div>
+</div>
+<div>
+  <a href="/rifas" class="btn btn-link">Voltar</a>
+</div>
 @endsection

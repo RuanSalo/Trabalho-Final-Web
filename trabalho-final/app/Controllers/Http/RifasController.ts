@@ -10,7 +10,7 @@ export default class RifasController {
   }
 
   public async show({ params, view, auth }: HttpContextContract) {
-    const rifa = await this.getRifa(auth, params.id)
+    const rifa = await this.getRifa(auth, params.id,true)
     return view.render('rifas/show', {rifa})
   }
 
@@ -30,15 +30,22 @@ export default class RifasController {
     ])
     const user = auth.user
     const rifa = await Rifa.create({ ...data, userId: user?.id, tipoId: 1, })
-    for(let i = 1; i <=1000; i++){
-      await rifa.related('bilhetes').create({numero: i})
+    for(let i = 1; i <=50; i++){
+      await rifa.related('bilhetes').create({numero: i,comprado: false,userId: user?.id})
     }
     response.redirect().toRoute('rifas.index')
   }
 
   public async edit({}: HttpContextContract) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({auth,request,response,params}: HttpContextContract) {
+    const rifa = await this.getRifa(auth, params.id, true)
+    const bilhete = request.only(['rifa.bilhete'])
+    if (!bilhete.comprado) {
+      
+    }
+    
+  }
 
   public async destroy({params, response, auth, session}: HttpContextContract) {
     const rifa = await this.getRifa(auth, params.id, true)

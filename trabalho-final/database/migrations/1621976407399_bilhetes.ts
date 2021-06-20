@@ -9,6 +9,7 @@ export default class Bilhetes extends BaseSchema {
       table.integer('rifa_id').unsigned().notNullable().references('id').inTable('rifas')
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.integer('numero').notNullable()
+      table.boolean('comprado').notNullable()
       table.timestamps(true)
     })
   }

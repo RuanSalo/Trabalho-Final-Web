@@ -14,6 +14,9 @@ export default class Bilhete extends BaseModel {
   @column()
   public numero: number
 
+  @column()
+  public comprado: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
