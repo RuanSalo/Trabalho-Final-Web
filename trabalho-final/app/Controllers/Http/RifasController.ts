@@ -5,8 +5,7 @@ import Rifa from 'App/Models/Rifa'
 
 export default class RifasController {
   public async index({ view, auth}: HttpContextContract) {
-    const user = auth.user!!
-    const rifas = await user.related('rifas').query()
+    const rifas = await Rifa.all()
     return view.render('rifas/index', {rifas})
   }
 
