@@ -6,6 +6,7 @@ Route.get('about', 'HomeController.about')
 
 Route.group(() => {
     Route.resource('rifas', 'RifasController')
+    Route.get('/rifas/:id/:bilhete_id/comprado','RifasController.comprado').as('rifas.comprado')
 }).middleware('auth')
 
 Route.get('/register', 'AuthController.register').as('auth.register')

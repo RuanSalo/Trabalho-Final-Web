@@ -29,14 +29,16 @@
 
     <div class="container border-color-primary">
       @each(bilhete in rifa.bilhetes)
-      @if(!bilhete.comprado)
         <li class="list-group-item d-flex justify-content-between">
         <div class="nome">{{ bilhete.numero }}</div>
         <div class="actions">
-          <button href="{{ route('rifas.edit', { id: rifa.id, bilhete_id: bilhete.id }) }}" class="btn btn-outline-primary">Comprar</button>
+          @if(!bilhete.comprado)
+            <a href="{{ route('rifas.comprado', { id: rifa.id, bilhete_id: bilhete.id }) }}" class="btn btn-outline-primary">Comprar</a>
+          @else
+            <button class="btn btn-outline-danger" disabled>Vendido</button>
+          @endif
         </div>
       </li>
-      @endif
       @endeach
     </div>
 

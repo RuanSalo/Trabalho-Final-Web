@@ -1,5 +1,6 @@
 import { AuthContract } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Bilhete from 'App/Models/Bilhete'
 import Rifa from 'App/Models/Rifa'
 
 export default class RifasController {
@@ -36,22 +37,19 @@ export default class RifasController {
     response.redirect().toRoute('rifas.index')
   }
 
-  public async edit({}: HttpContextContract) {}
-
-  public async update({auth,request,response,params}: HttpContextContract) {
+  public async comprado({ params, response, auth }: HttpContextContract) {
     const rifa = await this.getRifa(auth, params.id, true)
-    const bilhete = request.only(['rifa.bilhete'])
-    if (!bilhete.comprado) {
-      
-    }
-    
+    const bilhete = await this.getBilhete(auth, params)
+    bilhete.comprado = !bilhete.comprado
+    bilhete.save()
+    response.redirect().toRoute('rifas.show', {id: rifa.id})
   }
 
   public async destroy({params, response, auth, session}: HttpContextContract) {
     const rifa = await this.getRifa(auth, params.id, true)
     rifa.delete()
     session.flash('error', 'Rifa removida com sucesso.')
-    response.redirect().toRoute('rifas/index')
+    response.redirect().toRoute('rifas/show')
   }
 
   private async getRifa(auth: AuthContract, id, preload = false): Promise<Rifa> {
@@ -61,5 +59,14 @@ export default class RifasController {
     } else {
       return await user.related('rifas').query().where('id', id).firstOrFail()
     }
+  }
+  private async getBilhete(auth: AuthContract, params): Promise<Bilhete> {
+    const user = auth.user!!    
+    return await user
+      .related('bilhetes')
+      .query()
+      .where('bilhetes.id', params.bilhete_id)
+      .where('bilhetes.rifa_id', params.id)
+      .firstOrFail()
   }
 }
