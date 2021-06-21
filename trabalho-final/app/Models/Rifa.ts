@@ -3,6 +3,7 @@ import { BaseModel, column, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:
 import User from './User'
 import Bilhete from './Bilhete'
 import Tipo from './Tipo'
+import Premio from './Premio'
 export default class Rifa extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -45,6 +46,9 @@ export default class Rifa extends BaseModel {
 
   @hasMany(() => Bilhete)
   public bilhetes: HasMany<typeof Bilhete>
+
+  @hasMany(() => Premio)
+  public premios: HasMany<typeof Premio>
 
   @hasMany(() => Tipo)
   public tipos: HasMany<typeof Tipo>

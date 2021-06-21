@@ -1,0 +1,15 @@
+@layout('layout.app')
+@section('content')
+    <h1>Cadastro de prêmios</h1>
+    <form action="{{ route('rifas.cadastroPremio', { id: rifa.id})}}" method="post">
+        {{ csrfField() }}
+       <div class="py-1">
+            <label for="colocacao">Colocação:</label>
+            <input type="text" name="colocacao" id="colocacao">
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="descricao" id="descricao">
+        </div>
+        <a href="{{ route('rifas.show', { id: rifa.id }) }}" class="btn btn-link">Voltar</a>
+      </div>
+    
+@endsection

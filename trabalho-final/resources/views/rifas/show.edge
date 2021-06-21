@@ -26,6 +26,12 @@
     <div>
       <p>Valor do bilhete: {{rifa.valorBilhete}}</p>
     </div>
+    @each(p in premios)
+      <div>
+        <p> {{p.colocacao}}º Prêmio : {{p.descricao}}</p>
+      </div>
+    @endeach
+    
 
     <div class="container border-color-primary">
       @each(bilhete in rifa.bilhetes)
@@ -41,6 +47,7 @@
       </li>
       @endeach
     </div>
+    
 
   </div>
 </div>
